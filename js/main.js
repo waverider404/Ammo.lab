@@ -35,7 +35,43 @@ var isWithCode = false;
 function init(){
 
     view = new View();
+  document.getElementsByTagName("BODY")[0].onhashchange = function(){
+    view.scene.traverse(function(child) {
+
+            if (child instanceof THREE.Mesh) {
+              console.log(child)
+     if (child.material.type = "MeshStandardMaterial") {
+                   child.material.dispose();
+                    view.scene.remove(child.material)
+                    //child.material.color = new THREE.Color(0.800000011920929, 1.800000011920929, 0.800000011920929)
+
+                    child.material = new THREE.MeshLambertMaterial({
+                        color: child.material.color,
+                        map: child.material.map,
+                        skinning: true,
+                    });
+       
+            
+                
+                }
+              
+            }
+})
+  }
+ 
+  
+/*view.scene.traverse(function(child) {
+
+           // if (child instanceof THREE.Scene) {
+  console.log(child)
+              
+          //  }
+})*/
+  
     view.init( initAmmo );
+  
+  view.renderer.shadowMap.enabled = false
+  view.renderer.capabilities.precision = 'mediump'
 
 }
 
